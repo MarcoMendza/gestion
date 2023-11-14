@@ -1,5 +1,5 @@
-import { selectCard, resetSelection, addMatchedPair, setEndTime, setPairs, setStartTime, memorySlice } from './memorySlice';
-import { loadPairs } from "../../helpers/loadPairs.js";
+import { selectCard, resetSelection, addMatchedPair, setEndTime, setPairs, setStartTime, memorySlice } from './';
+import { loadPairs } from "../../helpers/";
 
 const doCardsMatch = (firstCard, secondCard) => {
     return firstCard.id === secondCard.id;

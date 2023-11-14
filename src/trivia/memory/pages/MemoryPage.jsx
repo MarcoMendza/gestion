@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Box, Button, Typography, Container } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { MemoryGameBoard } from "../components/MemoryGameBoard.jsx";
 import { useNavigate } from "react-router-dom";
 

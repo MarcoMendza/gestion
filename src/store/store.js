@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authSlice } from './auth'
-import {questionSlice} from "./questions/questionSlice.js";
-import {memorySlice} from "./memory/memorySlice.js";
+import {questionSlice} from "./questions/";
+import {memorySlice} from "./memory/";
 
 export const store = configureStore({
   reducer: {

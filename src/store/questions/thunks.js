@@ -1,5 +1,5 @@
-import {setQuestions, savedResults, setSaving} from "./questionSlice";
-import {loadQuestions} from "../../helpers/loadQuestions.js";
+import {setQuestions, savedResults, setSaving} from "./";
+import {loadQuestions} from "../../helpers/";
 import {FirebaseDB} from "../../firebase/config.js";
 import {setDoc, doc} from "firebase/firestore/lite";
 import {getFormattedDate} from "../../funtions/dateFormated.js";
