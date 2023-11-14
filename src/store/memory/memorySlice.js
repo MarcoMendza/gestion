@@ -1,35 +1,49 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 export const memorySlice = createSlice({
     name: 'memory',
     initialState: {
-        isSaving: false,
         pairs: [],
         selectedCards: [],
         matchedPairs: [],
         isFlipping: false,
-        score: 0,
-        message: '',
+        startTime: null,
+        endTime: null,
     },
     reducers: {
-        startGame:( state ) => {
-
+        setPairs: (state, action) => {
+            state.pairs = action.payload;
         },
-        flipCard: (state) => {
-
+        selectCard: (state, action) => {
+            if (state.selectedCards.length < 2) {
+                state.selectedCards.push(action.payload);
+            }
         },
-        checkMatch: ( state ) => {
-
+        resetSelection: (state) => {
+            state.selectedCards = [];
         },
-        endTurn: ( state ) =>{
-
-        }
+        addMatchedPair: (state, action) => {
+            state.matchedPairs.push(action.payload);
+        },
+        setStartTime: (state) => {
+            state.startTime = new Date().getTime();
+        },
+        setEndTime: (state) => {
+            state.endTime = new Date().getTime();
+        },
+        flipCard: (state, action) => {
+            const index = action.payload;
+            state.pairs[index].isFlipped = !state.pairs[index].isFlipped;
+        },
     }
 });
 
 export const {
-    startGame,
-    flipCard,
-    checkMatch,
-    endTurn
+    setPairs,
+    selectCard,
+    resetSelection,
+    addMatchedPair,
+    setStartTime,
+    setEndTime,
+    flipCard
 } = memorySlice.actions;

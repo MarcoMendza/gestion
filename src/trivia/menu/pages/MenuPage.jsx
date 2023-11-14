@@ -1,8 +1,12 @@
 import {Button, Grid, Typography, Paper} from '@mui/material';
 import {Link as RouterLink} from 'react-router-dom';
 import {NavBar} from "../components/NavBar.jsx";
+import {startLoadingPairs} from "../../../store/memory/thunks.js";
+import {useDispatch} from "react-redux";
 
 export const MenuPage = () => {
+
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -53,6 +57,7 @@ export const MenuPage = () => {
                                 component={RouterLink}
                                 to="/memory"
                                 style={{margin: '10px'}}
+                                onClick={ () => dispatch( startLoadingPairs() )}
                             >
                                 Memorama
                             </Button>
