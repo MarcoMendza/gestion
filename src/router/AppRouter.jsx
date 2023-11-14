@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { CheckingAuth } from '../ui/components/index.js'
 import { useCheckAuth } from '../hook/useCheckAuth'
-import {TriviaRoutes} from "../journal/routes/TriviaRoutes.jsx";
+import {TriviaRoutes} from "../trivia/routes/TriviaRoutes.jsx";
 
 export const AppRouter = () => {
 

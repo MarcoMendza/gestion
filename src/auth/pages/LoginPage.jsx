@@ -20,22 +20,19 @@ export const LoginPage = () => {
 
     const { email, password, onInputChange } = useForm( formData );
 
-    // console.log( status )
     const isAuthenticating = useMemo( () => status === 'checking', [status]);
 
     const onSubmit = ( event ) => {
         event.preventDefault();
-        // console.log( { email, password })
         dispatch( startLoginWithEmailPassword({ email, password }) );
     }
 
     const onGoogleSignIn = () => {
-        console.log('onGoogleSingIn')
         dispatch( startGoogleSignIn() )
     }
 
   return (
-    <AuthLayout title='Login'>
+    <AuthLayout title='Iniciar Sesion'>
         <form onSubmit={ onSubmit } className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container>
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -84,7 +81,7 @@ export const LoginPage = () => {
                                 variant="contained"
                                 fullWidth
                             >
-                                Login
+                                Entrar
                             </Button>
                         </Grid>
 
@@ -104,7 +101,7 @@ export const LoginPage = () => {
 
                     <Grid container direction='row' justifyContent='end'>
                         <Link component={ RouterLink } color='inherit' to='/auth/register'>
-                            Sing up
+                            Registrarse
                         </Link>
                     </Grid>
 
