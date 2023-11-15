@@ -29,11 +29,11 @@ export const MemoryCard = ({card, onCardClick, flipped, matched}) => {
                                 component="img"
                                 image={card.url}
                                 alt="Memory Card Image"
-                                sx={{width: '100%', height: '100%', objectFit: 'contain', mt: { sx: -6.2, md: -9.4}}}
+                                sx={{width: '100%', height: '100%', objectFit: 'contain', mt: { xs: -6.2, sm: -7.5, md: -9.4}}}
                             />
                         ) : (
                             <Typography variant="body1"
-                                        sx={{fontSize: '0.875rem', textAlign: 'center', padding: 1, mt: {sx: -4, md: -4}}}>
+                                        sx={{fontSize: '0.875rem', textAlign: 'center', padding: 1, mt: {xs: -5.2, md: -4}}}>
                                 {card.text}
                             </Typography>
                         )
@@ -43,7 +43,7 @@ export const MemoryCard = ({card, onCardClick, flipped, matched}) => {
                     position: 'absolute',
                     width: '100%',
                     height: '100%',
-                    mt: { xs: -6.2, md: -9.4},
+                    mt: { xs: -6.2, sm: -7.5, md: -9.4},
                     backgroundColor: '#1976d2',
                     color: 'white',
                     display: 'flex',
