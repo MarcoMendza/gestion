@@ -54,28 +54,34 @@ export const SoupPage = () => {
     const handleCellClick = (row, col) => {
         // Logic when a cell is clicked
         setSelected((prevSelected) => {
-          if (prevSelected.length === 0) {
-            return [{ row, col }];
-          } else {
-            const start = prevSelected[0];
-            const end = { row, col };
-            const word = getWord(start, end, grid).toUpperCase();
-      
-            if (WORDS.includes(word)) {
-              setFoundWords((prevWords) => [...prevWords, word]);
-              
-              const positions = getWordPositions(start, end);
-              setWordPositions((prevPositions) => ({
-                ...prevPositions,
-                [word]: positions,
-              }));
+            if (prevSelected.length === 0) {
+                return [{ row, col }];
             } else {
-              setTimeout(() => setSelected([]), 2000);
+                const start = prevSelected[0];
+                const end = { row, col };
+                const word = getWord(start, end, grid).toUpperCase();
+
+                if (WORDS.includes(word)) {
+                    setFoundWords((prevWords) => [...prevWords, word]);
+
+                    const positions = getWordPositions(start, end);
+                    setWordPositions((prevPositions) => ({
+                        ...prevPositions,
+                        [word]: positions,
+                    }));
+                } else {
+                    setTimeout(() => setSelected([]), 2000);
+                }
+                return [];
             }
-            return [];
-          }
         });
-      };
+        const positions = getWordPositions(start, end);
+        setWordPositions(prevPositions => ({
+            ...prevPositions,
+            [word]: positions, // positions should be an array
+        }));
+
+    };
 
 
     const getWord = (start, end, grid) => {
@@ -187,21 +193,37 @@ export const SoupPage = () => {
 };
 
 const isCellInWordPositions = (row, col, wordPositions) => {
-    return Object.values(wordPositions).flat().some(pos => pos.row === row && pos.col === col);
+    // Log the wordPositions to debug
+    console.log(wordPositions);
+
+    for (const key of Object.keys(wordPositions)) {
+        const positions = wordPositions[key];
+        // Check if positions is truly an array before calling .some on it
+        if (!Array.isArray(positions)) {
+            console.error(`Error: positions for word ${key} is not an array:`, positions);
+            continue; // Skip this iteration as it's not an array
+        }
+        if (positions.some(position => position.row === row && position.col === col)) {
+            return true;
+        }
+    }
+    return false;
 };
 
 
+
+
 const getCellColor = (row, col, selected, wordPositions) => {
+    console.log('wordPositions', wordPositions); // Add this line to debug
+
     const isSelected = selected.some(s => s.row === row && s.col === col);
-    const isPartOfFoundWord = Object.values(wordPositions).some(positions =>
-      positions.some(pos => pos.row === row && pos.col === col)
-    );
-    
+    const isPartOfFoundWord = isCellInWordPositions(row, col, wordPositions);
+
     if (isPartOfFoundWord) {
-      return 'success.main'; // Green for found words
+        return 'success.main'; // Green for found words
     } else if (isSelected) {
-      return 'primary.light'; // Light color for selected cells
+        return 'primary.light'; // Light color for selected cells
     }
     return 'default'; // Default color for unselected cells
-  };
+};
 
