@@ -13,11 +13,12 @@ export const MemoryPage = () => {
 
     return (
         <Box sx={{
-            minHeight: '100vh',
-            minWidth: '100vh',
+            minHeight: { xs: '100vh', md: '80vh' },
+            minWidth: { xs: '100vw', md: '80vw' },
             bgcolor: 'primary.main',
             color: 'primary.contrastText',
-            py: 3
+            py: 3,
+            px: { xs: 2, md: 3 }
         }}>
             <Typography variant="h3" gutterBottom align="center">
                 Memorama
