@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 // Define the size of the grid
 const GRID_SIZE = 10;
@@ -12,11 +13,10 @@ const generateGrid = () => {
     );
 
     // Place words in the grid
-    // This is a simplistic placement without checking for overlaps or out-of-bounds
     WORDS.forEach((word) => {
         let placed = false;
         while (!placed) {
-            const direction = Math.floor(Math.random() * 2); // 0 for horizontal, 1 for vertical
+            const direction = Math.floor(Math.random() * 2);
             const row = Math.floor(Math.random() * GRID_SIZE);
             const col = Math.floor(Math.random() * GRID_SIZE);
 
@@ -42,6 +42,7 @@ const generateGrid = () => {
 
 // Component to render the alphabet soup game
 export const SoupPage = () => {
+    const navigate = useNavigate();
     const [grid, setGrid] = useState([]);
     const [selected, setSelected] = useState([]);
     const [foundWords, setFoundWords] = useState([]);
@@ -61,31 +62,32 @@ export const SoupPage = () => {
                 const end = { row, col };
                 const word = getWord(start, end, grid).toUpperCase();
 
-                if (WORDS.includes(word)) {
-                    setFoundWords((prevWords) => [...prevWords, word]);
+                setTimeout(() => setSelected([]), 2000);
 
-                    const positions = getWordPositions(start, end);
+                if (WORDS.includes(word)) {
+                    const newPositions = getWordPositions(start, end);
+                    setFoundWords((prevWords) => [...prevWords, word]);
                     setWordPositions((prevPositions) => ({
                         ...prevPositions,
-                        [word]: positions,
+                        [word]: newPositions,
                     }));
-                } else {
-                    setTimeout(() => setSelected([]), 2000);
                 }
                 return [];
             }
         });
+
         const positions = getWordPositions(start, end);
         setWordPositions(prevPositions => ({
             ...prevPositions,
-            [word]: positions, // positions should be an array
+            [word]: (prevPositions[word] || []).concat(newPositions),
         }));
+
 
     };
 
 
     const getWord = (start, end, grid) => {
-        // Initialize word
+
         let word = '';
 
         // Check for horizontal word
@@ -149,52 +151,73 @@ export const SoupPage = () => {
         return positions;
     };
 
-
-
-
     return (
-        <Box sx={{ display: 'flex' }}>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container>
-                    {grid.map((row, rowIndex) => (
-                        <Grid item key={rowIndex} xs={12}>
-                            {row.map((cell, cellIndex) => (
-                                <Button
-                                    key={cellIndex}
-                                    onClick={() => handleCellClick(rowIndex, cellIndex)}
-                                    sx={{
-                                        width: 50,
-                                        height: 50,
-                                        bgcolor: getCellColor(rowIndex, cellIndex, selected, foundWords),
-                                    }}
-                                >
-                                    {cell}
-                                </Button>
-                            ))}
-                        </Grid>
+        <Grid container direction="column" alignItems="center" justifyContent="center"
+            sx={{
+                minHeight: '100vh',
+                backgroundColor: 'primary.main',
+                padding: 3
+            }}
+        >
+            <Box bgcolor='white' borderRadius={3} p={3}
+                sx={{ maxWidth: 600, width: '100%', overflow: 'hidden' }}
+            >
+                <Grid container justifyContent="center" spacing={1} sx={{ flexWrap: 'wrap' }}>
+                    {grid.flat().map((cell, cellIndex) => (
+                        <Button
+                            key={cellIndex}
+                            onClick={() => handleCellClick(Math.floor(cellIndex / GRID_SIZE), cellIndex % GRID_SIZE)}
+                            sx={{
+                                minWidth: 'calc(100% / 9 - 8px)', 
+                                height: 50,
+                                bgcolor: getCellColor(Math.floor(cellIndex / GRID_SIZE), cellIndex % GRID_SIZE, selected, foundWords),
+                                '&:hover': {
+                                    bgcolor: 'primary.light',
+                                    opacity: [0.9, 0.8, 0.7],
+                                },
+                            }}
+                        >
+                            {cell}
+                        </Button>
                     ))}
                 </Grid>
+                <Box mt={2} display="flex" justifyContent="center" flexWrap="wrap">
+                    {WORDS.map((word) => (
+                        <Typography
+                            key={word}
+                            sx={{
+                                textDecoration: foundWords.includes(word) ? 'line-through' : 'none',
+                                color: foundWords.includes(word) ? 'green' : 'inherit',
+                                margin: '0 8px', // Add some space around the words
+                            }}
+                        >
+                            {word}
+                        </Typography>
+                    ))}
+                </Box>
             </Box>
-            <Box sx={{ width: '200px', ml: 2 }}>
-                {WORDS.map((word) => (
-                    <Typography
-                        key={word}
-                        sx={{
-                            textDecoration: foundWords.includes(word) ? 'line-through' : 'none',
-                            color: foundWords.includes(word) ? 'green' : 'inherit',
-                        }}
-                    >
-                        {word}
-                    </Typography>
-                ))}
-            </Box>
-        </Box>
+            <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => navigate('/')}
+                sx={{
+                    width: 'fit-content',
+                    alignSelf: 'center',
+                    padding: '10px 30px',
+                    fontSize: '1rem',
+                    mb: 2,
+                    mt: 1
+                }}
+            >
+                Regresar
+            </Button>
+        </Grid>
     );
 };
 
 const isCellInWordPositions = (row, col, wordPositions) => {
     // Log the wordPositions to debug
-    console.log(wordPositions);
+    console.log(row, col, wordPositions);
 
     for (const key of Object.keys(wordPositions)) {
         const positions = wordPositions[key];
@@ -211,19 +234,16 @@ const isCellInWordPositions = (row, col, wordPositions) => {
 };
 
 
-
-
 const getCellColor = (row, col, selected, wordPositions) => {
-    console.log('wordPositions', wordPositions); // Add this line to debug
 
     const isSelected = selected.some(s => s.row === row && s.col === col);
     const isPartOfFoundWord = isCellInWordPositions(row, col, wordPositions);
 
     if (isPartOfFoundWord) {
-        return 'success.main'; // Green for found words
+        return 'success.main';
     } else if (isSelected) {
-        return 'primary.light'; // Light color for selected cells
+        return 'primary.light';
     }
-    return 'default'; // Default color for unselected cells
+    return 'default';
 };
 
