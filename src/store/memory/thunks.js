@@ -53,7 +53,6 @@ export const startLoadingPairs = () => {
     return async (dispatch ) => {
         const pairs = await loadPairs();
         const preparedPairs = shuffleAndDuplicatePairs(pairs);
-        console.log( preparedPairs )
         dispatch( setPairs( preparedPairs ));
         dispatch( setStartTime() );
     }
