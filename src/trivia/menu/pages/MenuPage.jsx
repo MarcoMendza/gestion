@@ -44,7 +44,7 @@ export const MenuPage = () => {
                                 variant="contained"
                                 color="secondary"
                                 component={RouterLink}
-                                to="/questions/"
+                                to="/soup/"
                                 style={{margin: '10px'}}
                             >
                                 Sopa de Letras
