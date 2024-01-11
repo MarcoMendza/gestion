@@ -3,6 +3,7 @@ import {MenuPage} from "../menu/pages/MenuPage.jsx";
 import {QuestionsPage} from "../questions/pages/QuestionsPage.jsx";
 import {MemoryPage} from "../memory/pages/MemoryPage.jsx";
 import { SoupPage } from "../soup/pages/SoupPage.jsx";
+import { BlogPage } from "../blog/BlogPage.jsx";
 
 
 export const TriviaRoutes = () => {
@@ -12,6 +13,7 @@ export const TriviaRoutes = () => {
             <Route path="/questions" element={ <QuestionsPage/> } />
             <Route path="/memory" element={ <MemoryPage/>}/>
             <Route path="/soup" element={ <SoupPage/>}/>
+            <Route path="/blog" element={ <BlogPage/>}/>
             <Route path="/*" element={ <Navigate to="/"/>} />
         </Routes>
     )

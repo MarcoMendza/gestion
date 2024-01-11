@@ -23,7 +23,6 @@ export const NavBar = ({ toggleDrawer, isDesktop }) => {
                     onClick={toggleDrawer}
                     sx = {{ mr:2, display: { sm: 'none' } }}
                 >
-                    <MenuOutlined />
                 </IconButton>
 
                 <Grid container justifyContent='space-between' alignItems='center' sx={{ width: '100%' }}>

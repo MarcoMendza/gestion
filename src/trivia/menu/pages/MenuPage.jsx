@@ -1,8 +1,8 @@
-import {Button, Grid, Typography, Paper} from '@mui/material';
-import {Link as RouterLink} from 'react-router-dom';
-import {NavBar} from "../components/NavBar.jsx";
-import {startLoadingPairs} from "../../../store/memory/thunks.js";
-import {useDispatch} from "react-redux";
+import { Button, Grid, Typography, Paper } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { NavBar } from "../components/NavBar.jsx";
+import { startLoadingPairs } from "../../../store/memory/thunks.js";
+import { useDispatch } from "react-redux";
 
 export const MenuPage = () => {
 
@@ -10,7 +10,7 @@ export const MenuPage = () => {
 
     return (
         <>
-            <NavBar/>
+            <NavBar />
             <Grid
                 container
                 spacing={0}
@@ -23,18 +23,30 @@ export const MenuPage = () => {
                     padding: 4
                 }}
             >
-                <Paper elevation={3} style={{padding: '20px', borderRadius: '15px'}}>
-                    <Typography variant="h4" gutterBottom style={{fontWeight: 'bold', color: '#424242'}}>
+                <Paper elevation={3} style={{ padding: '20px', borderRadius: '15px' }}>
+                    <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold', color: '#424242' }}>
                         ¡Elige una Actividad!
                     </Typography>
                     <Grid container spacing={2} direction="column" alignItems="center">
                         <Grid item>
                             <Button
                                 variant="contained"
+                                color="success"
+                                component={RouterLink}
+                                to="/blog"
+                                style={{ margin: '10px' }}
+                                onClick={() => dispatch(startLoadingPairs())}
+                            >
+                                Aprender!
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="contained"
                                 color="primary"
                                 component={RouterLink}
                                 to="/questions/"
-                                style={{margin: '10px'}}
+                                style={{ margin: '10px' }}
                             >
                                 Preguntas de Trivia
                             </Button>
@@ -45,7 +57,7 @@ export const MenuPage = () => {
                                 color="secondary"
                                 component={RouterLink}
                                 to="/soup/"
-                                style={{margin: '10px'}}
+                                style={{ margin: '10px' }}
                             >
                                 Sopa de Letras
                             </Button>
@@ -56,8 +68,8 @@ export const MenuPage = () => {
                                 color="success"
                                 component={RouterLink}
                                 to="/memory"
-                                style={{margin: '10px'}}
-                                onClick={ () => dispatch( startLoadingPairs() )}
+                                style={{ margin: '10px' }}
+                                onClick={() => dispatch(startLoadingPairs())}
                             >
                                 Memorama
                             </Button>
