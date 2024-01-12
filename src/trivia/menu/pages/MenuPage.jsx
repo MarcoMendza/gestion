@@ -45,7 +45,7 @@ export const MenuPage = () => {
                                 style={{ margin: '10px' }}
                                 onClick={handleLearnClick}
                             >
-                                Aprender!
+                                Aprende
                             </Button>
                         </Grid>
                         <Grid item>
@@ -57,17 +57,6 @@ export const MenuPage = () => {
                                 style={{ margin: '10px' }}
                             >
                                 Preguntas de Trivia
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                component={RouterLink}
-                                to="/soup/"
-                                style={{ margin: '10px' }}
-                            >
-                                Sopa de Letras
                             </Button>
                         </Grid>
                         <Grid item>

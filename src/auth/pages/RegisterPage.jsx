@@ -47,9 +47,9 @@ export const RegisterPage = () => {
 
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField
-                            label="Full name"
+                            label="Nombre Completo"
                             type="text"
-                            placeholder="Full Name"
+                            placeholder="Juan Perez"
                             fullWidth
                             name='displayName'
                             value={ displayName }
@@ -62,7 +62,7 @@ export const RegisterPage = () => {
 
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField
-                            label="Email"
+                            label="Correo"
                             type="email"
                             placeholder="email@google.com"
                             fullWidth
@@ -77,7 +77,7 @@ export const RegisterPage = () => {
 
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             placeholder="Password"
                             fullWidth
@@ -86,6 +86,26 @@ export const RegisterPage = () => {
                             onChange={ onInputChange }
                             error={ !!passwordValid && formSubmitted }
                             helperText={ passwordValid }
+                        >
+                        </TextField>
+                    </Grid>
+
+                    <Grid item xs={ 12 } sx={{ mt: 2 }}>
+                        <TextField
+                            label="Grado"
+                            type="text"
+                            placeholder="Grado"
+                            fullWidth
+                        >
+                        </TextField>
+                    </Grid>
+
+                    <Grid item xs={ 12 } sx={{ mt: 2 }}>
+                        <TextField
+                            label="Grupo"
+                            type="text"
+                            placeholder="Grupo"
+                            fullWidth
                         >
                         </TextField>
                     </Grid>

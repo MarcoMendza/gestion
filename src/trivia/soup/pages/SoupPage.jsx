@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 // Define the size of the grid
 const GRID_SIZE = 10;
-const WORDS = ['REACT', 'REDUX', 'HOOKS', 'STATE', 'PROPS', 'CONTEXT', 'FUNCTIONAL'];
+const WORDS = ['MEXICO', 'OLMECA', 'AZTECA', 'HIDALGO', 'ESPAÑOL', 'MALINCHE', 'COLONIAL'];
 
 // Helper function to generate a grid with random letters
 const generateGrid = () => {
